@@ -224,3 +224,28 @@ h3 { font-size: 1.3rem; line-height: 1.25; }
   .carousel { --gutter: 1rem; }
   .card { padding: 1.4rem 1.25rem 1.25rem; }
 }
+
+.guia { background: var(--creme); padding: 3.5rem 0; }
+.guia-grid { display: grid; gap: 2rem; }
+.guia-intro { display: grid; gap: 1rem; align-content: start; justify-items: start; }
+.guia-intro p:not(.guia-sub) { max-width: 36rem; }
+.guia-sub { font-weight: 600; color: var(--dourado); }
+.guia-intro .btn { margin-top: .5rem; }
+.guia-list { background: var(--rosa); border-radius: 22px; padding: 1.5rem; }
+.guia-list h3 { margin-bottom: 1rem; }
+.guia-list li { position: relative; padding: .75rem 0 .75rem 1.4rem; border-top: 1px solid rgba(63, 90, 76, .2); }
+.guia-list li::before { content: ""; position: absolute; left: 0; top: 1.3rem; width: 8px; height: 8px; border-radius: 50%; background: var(--dourado-claro); }
+.guia-for { margin-top: 2.5rem; }
+.guia-for > h3 { margin-bottom: 1rem; }
+.guia-for ul { display: grid; gap: 1.25rem; }
+.guia-for li { padding-top: 1rem; border-top: 1px solid rgba(63, 90, 76, .25); }
+.guia-for h4 { margin: 0 0 .35rem; font-family: var(--serif); font-weight: 600; font-size: 1.2rem; line-height: 1.25; color: var(--salvia-esc); }
+.guia-note { margin-top: 2rem; font-size: .9375rem; color: #5d6c63; max-width: 40rem; }
+
+@media (min-width: 900px) {
+  .guia { padding: 5.5rem 0; }
+  .guia-grid { grid-template-columns: 1.1fr .9fr; gap: 4.5rem; align-items: start; }
+  .guia-list { padding: 2rem; }
+  .guia-for { margin-top: 4rem; }
+  .guia-for ul { grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+}
