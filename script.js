@@ -136,3 +136,74 @@ document.addEventListener('DOMContentLoaded', () => {
     moved = false;
   }, true);
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const hover = window.matchMedia('(hover: hover)').matches;
+
+  const seen = new Map();
+  const items = document.querySelectorAll('.guia-r');
+  items.forEach((el) => {
+    const n = seen.get(el.parentElement) || 0;
+    seen.set(el.parentElement, n + 1);
+    el.style.setProperty('--d', `${Math.min(n, 5) * 80}ms`);
+  });
+
+  const counters = document.querySelectorAll('[data-count]');
+  const count = (el) => {
+    const to = Number(el.dataset.count);
+    const start = performance.now();
+    const step = (now) => {
+      const p = Math.min((now - start) / 1300, 1);
+      el.textContent = Math.round(to * (1 - Math.pow(1 - p, 3)));
+      if (p < 1) requestAnimationFrame(step);
+    };
+    el.textContent = '0';
+    requestAnimationFrame(step);
+  };
+
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('is-in');
+        io.unobserve(entry.target);
+        const num = entry.target.querySelector('[data-count]');
+        if (num && !reduce) count(num);
+      });
+    }, { threshold: 0.2, rootMargin: '0px 0px -5% 0px' });
+    items.forEach((el) => io.observe(el));
+  } else {
+    items.forEach((el) => el.classList.add('is-in'));
+  }
+
+  if (hover) {
+    document.querySelectorAll('.bt').forEach((tile) => {
+      tile.addEventListener('pointermove', (e) => {
+        const r = tile.getBoundingClientRect();
+        tile.style.setProperty('--mx', `${e.clientX - r.left}px`);
+        tile.style.setProperty('--my', `${e.clientY - r.top}px`);
+      });
+    });
+  }
+
+  const cover = document.querySelector('[data-tilt]');
+  if (cover && hover && !reduce) {
+    const area = cover.parentElement;
+    area.addEventListener('pointermove', (e) => {
+      const r = cover.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width;
+      const y = (e.clientY - r.top) / r.height;
+      cover.classList.add('is-tilting');
+      cover.style.setProperty('--ry', `${(x - 0.5) * 16}deg`);
+      cover.style.setProperty('--rx', `${(0.5 - y) * 14}deg`);
+      cover.style.setProperty('--gx', `${x * 100}%`);
+      cover.style.setProperty('--gy', `${y * 100}%`);
+    });
+    area.addEventListener('pointerleave', () => {
+      cover.classList.remove('is-tilting');
+      cover.style.setProperty('--rx', '0deg');
+      cover.style.setProperty('--ry', '0deg');
+    });
+  }
+});
