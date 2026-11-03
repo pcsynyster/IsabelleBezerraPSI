@@ -74,3 +74,68 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+  const track = document.querySelector('.carousel');
+  if (!track) return;
+  const prev = document.querySelector('[data-carousel="prev"]');
+  const next = document.querySelector('[data-carousel="next"]');
+  const thumb = document.querySelector('.carousel-progress span');
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const step = () => {
+    const card = track.querySelector('.card');
+    return card.getBoundingClientRect().width + parseFloat(getComputedStyle(track).columnGap || 0);
+  };
+  const update = () => {
+    const max = track.scrollWidth - track.clientWidth;
+    prev.disabled = track.scrollLeft <= 4;
+    next.disabled = track.scrollLeft >= max - 4;
+    thumb.style.width = `${(track.clientWidth / track.scrollWidth) * 100}%`;
+    thumb.style.left = `${(track.scrollLeft / track.scrollWidth) * 100}%`;
+  };
+  const go = (dir) => track.scrollBy({ left: dir * step(), behavior: reduce ? 'auto' : 'smooth' });
+
+  prev.addEventListener('click', () => go(-1));
+  next.addEventListener('click', () => go(1));
+  track.addEventListener('scroll', update, { passive: true });
+  window.addEventListener('resize', update);
+  track.addEventListener('keydown', (e) => {
+    if (e.target !== track) return;
+    if (e.key === 'ArrowRight') { e.preventDefault(); go(1); }
+    if (e.key === 'ArrowLeft') { e.preventDefault(); go(-1); }
+  });
+  update();
+
+  let down = false;
+  let moved = false;
+  let startX = 0;
+  let startLeft = 0;
+  track.addEventListener('pointerdown', (e) => {
+    if (e.pointerType !== 'mouse') return;
+    down = true;
+    moved = false;
+    startX = e.clientX;
+    startLeft = track.scrollLeft;
+  });
+  window.addEventListener('pointermove', (e) => {
+    if (!down) return;
+    const dx = e.clientX - startX;
+    if (Math.abs(dx) > 5) {
+      moved = true;
+      track.classList.add('is-dragging');
+    }
+    if (moved) track.scrollLeft = startLeft - dx;
+  });
+  window.addEventListener('pointerup', () => {
+    if (!down) return;
+    down = false;
+    track.classList.remove('is-dragging');
+  });
+  track.addEventListener('click', (e) => {
+    if (!moved) return;
+    e.preventDefault();
+    e.stopPropagation();
+    moved = false;
+  }, true);
+});

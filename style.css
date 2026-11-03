@@ -82,7 +82,19 @@ h3 { font-size: 1.3rem; line-height: 1.25; }
 
 .atendimentos { background: var(--salvia); padding: 3.5rem 0; }
 .section-head { display: grid; gap: .75rem; max-width: 38rem; margin-bottom: 2rem; }
-.bento { display: grid; gap: .875rem; }
+.carousel { display: flex; gap: .875rem; margin-inline: -1.25rem; padding: 0 1.25rem .25rem; scroll-padding-inline: 1.25rem; overflow-x: auto; scroll-snap-type: x mandatory; overscroll-behavior-x: contain; scrollbar-width: none; }
+.carousel::-webkit-scrollbar { display: none; }
+.carousel .card { flex: 0 0 82%; max-width: 320px; scroll-snap-align: start; }
+.carousel .card-feature { flex-basis: 88%; max-width: 380px; }
+.carousel .card-wide { max-width: 340px; }
+.carousel a { -webkit-user-drag: none; }
+.carousel.is-dragging { scroll-snap-type: none; cursor: grabbing; user-select: none; }
+.carousel-nav { display: flex; align-items: center; gap: .75rem; margin-top: 1.5rem; }
+.carousel-progress { position: relative; flex: 1; height: 2px; margin-right: .5rem; background: rgba(63, 90, 76, .22); }
+.carousel-progress span { position: absolute; top: 0; bottom: 0; left: 0; width: 20%; background: var(--salvia-esc); transition: left .15s linear; }
+.carousel-btn { width: 48px; height: 48px; display: grid; place-items: center; border-radius: 50%; border: 1.5px solid var(--salvia-esc); background: transparent; color: var(--salvia-esc); cursor: pointer; transition: background-color .2s, color .2s, opacity .2s; }
+.carousel-btn:hover:not(:disabled) { background: var(--salvia-esc); color: #fff; }
+.carousel-btn:disabled { opacity: .35; cursor: default; }
 .card { display: flex; flex-direction: column; align-items: flex-start; gap: .65rem; padding: 1.4rem; background: var(--creme); border-radius: var(--raio); border: 1px solid transparent; transition: border-color .2s; }
 .card:hover { border-color: var(--dourado-claro); }
 .card { position: relative; overflow: hidden; }
@@ -146,8 +158,6 @@ h3 { font-size: 1.3rem; line-height: 1.25; }
 @media (min-width: 600px) {
   .actions { display: flex; flex-wrap: wrap; width: auto; }
   .facts { grid-template-columns: repeat(3, 1fr); }
-  .bento { grid-template-columns: repeat(2, 1fr); }
-  .card-feature, .card-wide { grid-column: 1 / -1; }
 }
 
 @media (min-width: 900px) {
@@ -167,12 +177,13 @@ h3 { font-size: 1.3rem; line-height: 1.25; }
   .sobre-grid { grid-template-columns: .75fr 1.25fr; gap: 5rem; align-items: start; }
   .sobre-side { order: -1; }
   .facts { grid-template-columns: 1fr; }
-  .bento { grid-template-columns: repeat(12, 1fr); gap: 1.1rem; }
+  .carousel { gap: 1.1rem; }
+  .carousel .card { flex-basis: 300px; }
+  .carousel .card-feature { flex-basis: 420px; max-width: 420px; }
+  .carousel .card-wide { flex-basis: 360px; }
+  .carousel:hover { cursor: grab; }
   .card { padding: 1.75rem; }
-  .card-feature { grid-column: span 6; grid-row: span 2; padding: 2.25rem; justify-content: flex-end; }
-  .card-wide { grid-column: span 6; }
-  .card-rose, .card-sage, .card:nth-child(5), .card:nth-child(6) { grid-column: span 3; }
-  .card-gold { grid-column: span 6; }
+  .card-feature { padding: 2.25rem; }
   .quote .container { display: flex; justify-content: center; }
   .quote blockquote { max-width: 22ch; text-align: center; font-size: clamp(2.2rem, 4vw, 3.2rem); }
   .como-grid { grid-template-columns: .8fr 1.2fr; gap: 5rem; }
@@ -185,6 +196,7 @@ h3 { font-size: 1.3rem; line-height: 1.25; }
 @media (max-width: 380px) {
   .container { width: min(100% - 2rem, 1140px); }
   .card, .card-feature { padding: 1.25rem; }
+  .carousel { margin-inline: -1rem; padding-inline: 1rem; scroll-padding-inline: 1rem; }
 }
 
 @media (prefers-reduced-motion: reduce) {
