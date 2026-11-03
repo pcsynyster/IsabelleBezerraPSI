@@ -80,7 +80,6 @@ document.addEventListener('DOMContentLoaded', () => {
   if (!track) return;
   const prev = document.querySelector('[data-carousel="prev"]');
   const next = document.querySelector('[data-carousel="next"]');
-  const thumb = document.querySelector('.carousel-progress span');
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   const step = () => {
@@ -91,8 +90,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const max = track.scrollWidth - track.clientWidth;
     prev.disabled = track.scrollLeft <= 4;
     next.disabled = track.scrollLeft >= max - 4;
-    thumb.style.width = `${(track.clientWidth / track.scrollWidth) * 100}%`;
-    thumb.style.left = `${(track.scrollLeft / track.scrollWidth) * 100}%`;
   };
   const go = (dir) => track.scrollBy({ left: dir * step(), behavior: reduce ? 'auto' : 'smooth' });
 
