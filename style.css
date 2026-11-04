@@ -314,20 +314,61 @@ h3 { font-size: 1.3rem; line-height: 1.25; }
   .guia-cover { transition: none; }
 }
 
-.empresas { background: var(--salvia); padding: 3.5rem 0; }
-.emp-intro { display: grid; gap: 1.75rem; }
-.emp-title { display: grid; gap: .9rem; align-content: start; }
-.emp-title h2 { font-size: clamp(2.1rem, 9vw, 3.8rem); line-height: 1.08; }
-.emp-tag { font-family: var(--serif); font-style: italic; font-size: 1.25rem; line-height: 1.35; color: var(--dourado); }
-.emp-about { display: grid; gap: .9rem; align-content: start; }
-.emp-about h3 { font-size: 1.35rem; }
-.emp-head { margin: 3.5rem 0 1.25rem; font-size: 1.6rem; line-height: 1.2; }
+.btn-ghost { border-color: rgba(255, 255, 255, .55); color: #fff; }
+.btn-ghost:hover { background: #fff; color: var(--salvia-esc); }
 
-.emp-services { display: grid; gap: 0; counter-reset: none; }
-.emp-services li { display: grid; grid-template-columns: 3.1rem 1fr; gap: .75rem; align-items: baseline; padding: 1rem 0; border-top: 1px solid rgba(63, 90, 76, .28); }
+.empresas { background: var(--salvia); }
+.emp-hero { position: relative; overflow: hidden; padding: 3.5rem 0 4rem; background: #2b3a32; color: #f3ece2; }
+.emp-hero::before { content: ""; position: absolute; top: -190px; left: -150px; width: 580px; height: 580px; border-radius: 50%; background: radial-gradient(closest-side, rgba(201, 162, 74, .26), transparent); pointer-events: none; }
+.emp-mono { position: absolute; right: -.05em; bottom: -.2em; font-family: var(--serif); font-weight: 600; font-size: clamp(15rem, 62vw, 38rem); line-height: 1; color: transparent; -webkit-text-stroke: 1px rgba(201, 162, 74, .3); pointer-events: none; user-select: none; }
+.emp-hero-grid { position: relative; display: grid; gap: 2.5rem; }
+.emp-title { display: grid; gap: 1.1rem; align-content: end; justify-items: start; }
+.emp-title h2 { color: #fff; font-size: clamp(2.5rem, 10.5vw, 5.6rem); line-height: 1.02; }
+.emp-tag { font-family: var(--serif); font-style: italic; font-size: 1.3rem; line-height: 1.35; color: #e6d3a3; }
+.emp-hero-actions { display: grid; gap: .75rem; width: 100%; margin-top: .75rem; }
+.emp-about { display: grid; gap: .9rem; align-content: end; }
+.emp-about h3 { color: #fff; font-size: 1.3rem; }
+.emp-about p { color: #e4e9e5; }
+
+.emp-main { padding-block: 3.5rem; }
+.emp-stage { display: grid; gap: 2.5rem; }
+.emp-orbit { width: min(88vw, 340px); justify-self: center; }
+.emp-orbit svg { display: block; width: 100%; height: auto; overflow: visible; }
+.orbit .ring { fill: none; }
+.orbit .ring-a { stroke: var(--dourado-claro); stroke-width: 1.4; }
+.orbit .ring-b { stroke: rgba(63, 90, 76, .4); stroke-width: 1; }
+.orbit .ring-c { stroke: rgba(63, 90, 76, .25); stroke-width: 1; stroke-dasharray: 2 7; }
+.orbit .spoke { stroke: rgba(63, 90, 76, .28); stroke-width: 1; transition: stroke .4s; }
+.orbit .spoke.on { stroke: var(--dourado); stroke-width: 1.4; }
+.orbit .medal { filter: drop-shadow(0 14px 16px rgba(43, 58, 50, .28)); }
+.node { transform-box: fill-box; transform-origin: center; transition: transform .45s cubic-bezier(.2, .7, .2, 1); }
+.node .dot { fill: var(--creme); stroke: var(--dourado-claro); stroke-width: 1.5; transition: fill .35s; }
+.node .halo { fill: rgba(201, 162, 74, .26); opacity: 0; transition: opacity .4s; }
+.node text { font-family: var(--serif); font-weight: 600; font-size: 12px; fill: var(--salvia-esc); text-anchor: middle; dominant-baseline: central; transition: fill .35s; }
+.node.on { transform: scale(1.2); }
+.node.on .dot { fill: var(--salvia-esc); }
+.node.on .halo { opacity: 1; }
+.node.on text { fill: #fff; }
+
+.js .orbit .ring-a, .js .orbit .ring-b { stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 1.8s cubic-bezier(.4, 0, .2, 1); }
+.js .orbit .ring-b { transition-delay: .25s; }
+.js .orbit .ring-c, .js .orbit .spoke { opacity: 0; transition: opacity 1s ease .9s, stroke .4s; }
+.js .orbit .medal { opacity: 0; transform: scale(.9); transform-box: fill-box; transform-origin: center; transition: opacity .9s ease, transform 1.1s cubic-bezier(.2, .7, .2, 1); }
+.js .node-in { opacity: 0; transform: scale(.5); transform-box: fill-box; transform-origin: center; transition: opacity .6s ease calc(900ms + var(--k) * 120ms), transform .8s cubic-bezier(.2, .7, .2, 1) calc(900ms + var(--k) * 120ms); }
+.js .emp-orbit.is-in .ring-a, .js .emp-orbit.is-in .ring-b { stroke-dashoffset: 0; }
+.js .emp-orbit.is-in .ring-c, .js .emp-orbit.is-in .spoke { opacity: 1; }
+.js .emp-orbit.is-in .medal, .js .emp-orbit.is-in .node-in { opacity: 1; transform: none; }
+
+.emp-head { margin: 0 0 1.25rem; font-size: 1.7rem; line-height: 1.2; }
+#emp-planos { margin-top: 3.5rem; }
+.emp-services li { position: relative; display: grid; grid-template-columns: 3rem 1fr; gap: .5rem; align-items: baseline; padding: 1.15rem 0; border-top: 1px solid rgba(63, 90, 76, .28); }
 .emp-services li:last-child { border-bottom: 1px solid rgba(63, 90, 76, .28); }
-.svc-n { font-family: var(--serif); font-weight: 600; font-size: 1.35rem; line-height: 1; color: var(--dourado); }
-.emp-services p { font-family: var(--serif); font-weight: 600; font-size: 1.2rem; line-height: 1.3; color: var(--salvia-esc); text-wrap: balance; }
+.emp-services li::after { content: ""; position: absolute; left: 0; right: 0; top: -1px; height: 2px; background: var(--dourado-claro); transform: scaleX(0); transform-origin: left; transition: transform .7s cubic-bezier(.2, .7, .2, 1); }
+.emp-services li.is-active::after { transform: scaleX(1); }
+.svc-n { font-family: var(--serif); font-weight: 600; font-size: 1.35rem; line-height: 1; color: #8a7340; transition: color .4s; }
+.emp-services p { font-family: var(--serif); font-weight: 600; font-size: 1.3rem; line-height: 1.28; color: var(--salvia-esc); opacity: .8; transition: opacity .4s; }
+.emp-services li.is-active p { opacity: 1; }
+.emp-services li.is-active .svc-n { color: var(--dourado); }
 
 .emp-plans { display: grid; gap: 1rem; }
 .plan { position: relative; overflow: hidden; display: flex; flex-direction: column; gap: .85rem; padding: 1.6rem 1.5rem 1.5rem; background: var(--creme); border-radius: 26px; }
@@ -378,16 +419,26 @@ h3 { font-size: 1.3rem; line-height: 1.25; }
 .emp-meta dd { color: #fff; }
 .emp-meta a { display: inline-flex; align-items: center; min-height: 44px; text-underline-offset: 4px; }
 
+.nw { white-space: nowrap; }
+
+@media (min-width: 600px) {
+  .emp-hero-actions { display: flex; flex-wrap: wrap; width: auto; }
+}
+
 @media (min-width: 900px) {
-  .empresas { padding: 5.5rem 0; }
-  .emp-intro { grid-template-columns: 1.1fr .9fr; gap: 4.5rem; align-items: end; }
-  .emp-title h2 { font-size: clamp(2.8rem, 4.6vw, 4rem); }
-  .emp-tag { font-size: 1.5rem; }
-  .emp-head { margin-top: 5rem; font-size: 1.9rem; }
-  .emp-services { grid-template-columns: repeat(3, 1fr); column-gap: 2.5rem; }
-  .emp-services li { grid-template-columns: 2.6rem 1fr; padding: 1.4rem 0 1.6rem; }
-  .emp-services li:nth-last-child(-n+3) { border-bottom: 1px solid rgba(63, 90, 76, .28); }
-  .emp-services li:last-child { border-bottom: 1px solid rgba(63, 90, 76, .28); }
+  .emp-hero { padding: 6.5rem 0 6rem; }
+  .emp-hero-grid { grid-template-columns: 1.2fr .8fr; gap: 5rem; align-items: end; }
+  .emp-title h2 { font-size: clamp(3.4rem, 6vw, 5.6rem); }
+  .emp-tag { font-size: 1.6rem; }
+  .emp-about { padding-left: 2rem; border-left: 1px solid rgba(201, 162, 74, .45); }
+  .emp-main { padding-block: 6rem; }
+  .emp-stage { grid-template-columns: .9fr 1.1fr; gap: 5rem; align-items: start; }
+  .emp-orbit { position: sticky; top: calc(var(--header-h) + 3rem); width: 100%; max-width: 460px; justify-self: start; }
+  .emp-head { font-size: 2rem; }
+  .emp-services li { grid-template-columns: 3.6rem 1fr; padding: 1.5rem 0; }
+  .emp-services p { font-size: 1.65rem; }
+  .svc-n { font-size: 1.5rem; }
+  #emp-planos { margin-top: 6rem; }
   .emp-plans { grid-template-columns: repeat(3, 1fr); gap: 1.25rem; align-items: stretch; padding-block: 1rem; }
   .plan { padding: 2rem 1.75rem 1.75rem; }
   .plan-featured { margin-block: -1rem; padding-block: 3rem 2.75rem; }
@@ -401,4 +452,8 @@ h3 { font-size: 1.3rem; line-height: 1.25; }
   .emp-cta { padding: 2rem 1.25rem; }
 }
 
-.nw { white-space: nowrap; }
+@media (prefers-reduced-motion: reduce) {
+  .js .orbit .ring-a, .js .orbit .ring-b { stroke-dashoffset: 0; transition: none; }
+  .js .orbit .ring-c, .js .orbit .spoke, .js .orbit .medal, .js .node-in { opacity: 1; transform: none; transition: none; }
+  .emp-services li::after { transition: none; }
+}

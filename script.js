@@ -207,3 +207,37 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+  const rows = Array.from(document.querySelectorAll('.emp-services li'));
+  const nodes = Array.from(document.querySelectorAll('.orbit .node'));
+  const spokes = Array.from(document.querySelectorAll('.orbit .spoke'));
+  const list = document.querySelector('.emp-services');
+  if (!rows.length || !nodes.length || !list) return;
+
+  let hovering = false;
+  const activate = (i) => {
+    rows.forEach((el, k) => el.classList.toggle('is-active', k === i));
+    nodes.forEach((el, k) => el.classList.toggle('on', k === i));
+    spokes.forEach((el, k) => el.classList.toggle('on', k === i));
+  };
+  activate(0);
+
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      if (hovering) return;
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) activate(rows.indexOf(entry.target));
+      });
+    }, { rootMargin: '-42% 0px -42% 0px' });
+    rows.forEach((row) => io.observe(row));
+  }
+
+  if (window.matchMedia('(hover: hover)').matches) {
+    rows.forEach((row, i) => row.addEventListener('pointerenter', () => {
+      hovering = true;
+      activate(i);
+    }));
+    list.addEventListener('pointerleave', () => { hovering = false; });
+  }
+});
