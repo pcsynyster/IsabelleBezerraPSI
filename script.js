@@ -142,7 +142,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const hover = window.matchMedia('(hover: hover)').matches;
 
   const seen = new Map();
-  const items = document.querySelectorAll('.guia-r');
+  const items = document.querySelectorAll('.guia-r, .emp-r');
   items.forEach((el) => {
     const n = seen.get(el.parentElement) || 0;
     seen.set(el.parentElement, n + 1);
@@ -178,7 +178,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   if (hover) {
-    document.querySelectorAll('.bt').forEach((tile) => {
+    document.querySelectorAll('.bt, .plan').forEach((tile) => {
       tile.addEventListener('pointermove', (e) => {
         const r = tile.getBoundingClientRect();
         tile.style.setProperty('--mx', `${e.clientX - r.left}px`);
