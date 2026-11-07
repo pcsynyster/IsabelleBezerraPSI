@@ -457,3 +457,44 @@ h3 { font-size: 1.3rem; line-height: 1.25; }
   .js .orbit .ring-c, .js .orbit .spoke, .js .orbit .medal, .js .node-in { opacity: 1; transform: none; transition: none; }
   .emp-services li::after { transition: none; }
 }
+
+.exterior { background: var(--salvia); padding: 3.5rem 0; }
+.ext-top, .ext-body { display: grid; gap: 1.5rem; }
+.ext-head { display: grid; gap: 1rem; align-content: start; }
+.ext-head h2 { text-wrap: balance; }
+.ext-lead { font-family: var(--serif); font-style: italic; font-size: 1.3rem; line-height: 1.35; color: var(--dourado); }
+.ext-text { display: grid; gap: 1rem; max-width: 40rem; }
+.ext-body { margin-top: 3rem; padding-top: 2.25rem; border-top: 1px solid rgba(63, 90, 76, .28); }
+.ext-intro { display: grid; gap: .75rem; align-content: start; }
+.ext-intro h3 { font-size: clamp(1.6rem, 6vw, 2.2rem); line-height: 1.15; }
+.ext-list { display: grid; }
+.ext-list li { position: relative; padding: 1.1rem 0 1.1rem 2rem; border-bottom: 1px solid rgba(63, 90, 76, .2); font-weight: 600; }
+.ext-list li:first-child { padding-top: 0; }
+.ext-list li:last-child { border-bottom: 0; }
+.ext-list li::before { content: ""; position: absolute; left: .2rem; top: 1.65rem; width: .6rem; height: .6rem; border-radius: 50%; background: var(--dourado-claro); }
+.ext-list li:first-child::before { top: .55rem; }
+.ext-cta { position: relative; overflow: hidden; display: grid; gap: .5rem; margin-top: 3rem; padding: 2rem 1.5rem; background: var(--creme); border-radius: 28px; }
+.ext-num { font-family: var(--serif); font-weight: 500; font-size: clamp(5rem, 24vw, 8rem); line-height: .9; letter-spacing: -.04em; color: var(--dourado-claro); }
+.ext-num small { margin-left: .3rem; font-size: .22em; letter-spacing: 0; color: var(--dourado); }
+.ext-cta-text { display: grid; gap: .9rem; justify-items: start; }
+.ext-cta h3 { font-size: clamp(1.7rem, 6.5vw, 2.4rem); line-height: 1.15; }
+.ext-cta-lead { font-family: var(--serif); font-weight: 500; font-size: 1.25rem; line-height: 1.35; color: var(--dourado); }
+.ext-note { display: inline-block; justify-self: start; padding: .2rem .65rem; border-radius: 6px; background: var(--rosa); font-weight: 700; color: var(--salvia-esc); }
+.ext-cta .btn { margin-top: .4rem; }
+.ext-sign { margin-top: .5rem; font-size: .9375rem; }
+.ext-sign strong { display: block; font-family: var(--serif); font-size: 1.1rem; color: var(--salvia-esc); }
+
+@media (min-width: 900px) {
+  .exterior { padding: 5.5rem 0; }
+  .ext-top { grid-template-columns: 1fr 1fr; gap: 4rem; }
+  .ext-lead { font-size: 1.5rem; }
+  .ext-text { padding-top: .4rem; }
+  .ext-body { grid-template-columns: 1fr 1fr; gap: 4rem; margin-top: 4rem; padding-top: 3rem; }
+  .ext-list li { font-size: 1.125rem; }
+  .ext-cta { grid-template-columns: auto 1fr; align-items: center; gap: 3.5rem; margin-top: 4rem; padding: 3.5rem; }
+  .ext-num { font-size: 11rem; }
+}
+
+@media (max-width: 380px) {
+  .ext-cta { padding: 1.75rem 1.25rem; }
+}
